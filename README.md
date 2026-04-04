@@ -1,4 +1,4 @@
-# ShareBot
+# Constitution
 
 A project combining a Python FastAPI backend and Flutter frontend.
 
