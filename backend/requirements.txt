@@ -1,0 +1,42 @@
+# FastAPI and API dependencies
+fastapi==0.135.3
+uvicorn==0.36.0
+pydantic==2.9.2
+python-multipart==0.0.7
+
+# PDF and document processing
+pypdf==5.1.0
+
+# Machine learning and embeddings
+sentence-transformers==3.3.1
+scikit-learn==1.6.1
+numpy==1.24.4
+
+# Vector database
+faiss-cpu==1.13.2
+
+# LLM integrations
+groq==1.1.2
+langchain==1.2.15
+langchain-core==1.2.25
+langchain-community==0.3.10
+
+# Database
+psycopg2-binary==2.9.12
+sqlalchemy==2.0.36
+
+# Environment and configuration
+python-dotenv==1.0.1
+
+# Utilities
+click==8.3.1
+pyyaml==6.0.2
+requests==2.32.3
+
+# Development dependencies
+pytest==8.2.2
+pytest-asyncio==0.25.2
+black==24.10.0
+flake8==7.1.1
+isort==5.13.2
+mypy==1.15.0
