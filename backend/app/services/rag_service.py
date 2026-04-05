@@ -3,6 +3,37 @@ from app.services.loader_service import loader
 from app.utils.logger import logger
 
 
+# =========================
+# DETECT CONSTITUTION QUESTIONS
+# =========================
+def is_constitution_question(query: str) -> bool:
+    """Check if the question is related to Indian Constitution"""
+    q = query.lower()
+    
+    constitution_keywords = [
+        "constitution", "article", "schedule", "amendment",
+        "fundamental rights", "lok sabha", "rajya sabha",
+        "president", "parliament", "directive principle",
+        "preamble", "republic day", "indian law", "constitutional",
+        "voting", "election", "citizenship", "court",
+        "supreme court", "high court", "petition", "writ",
+        "fundamental duty", "secular", "socialist", "republic"
+    ]
+    
+    for keyword in constitution_keywords:
+        if keyword in q:
+            return True
+    
+    # If query is very short (like "hi", "ok", "hello"), it's not constitution
+    if len(q.split()) <= 2 and not any(kw in q for kw in constitution_keywords):
+        return False
+    
+    return False
+
+
+# =========================
+# RETRIEVE CONTEXT
+# =========================
 def retrieve_context(query: str, k: int = 3) -> str:
     try:
         query_embedding = get_embedding(query)

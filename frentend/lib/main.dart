@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ShareBot AI - Indian Constitution',
+      title: 'Indian Constitution ai',
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: Color(0xFF10A37F),

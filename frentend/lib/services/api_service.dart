@@ -14,7 +14,7 @@ class ApiService {
             headers: {"Content-Type": "application/json"},
             body: jsonEncode({"query": query}),
           )
-          .timeout(Duration(seconds: 10));
+          .timeout(Duration(seconds: 30));
 
       print("Response status: ${response.statusCode}");
       print("Response body: ${response.body}");

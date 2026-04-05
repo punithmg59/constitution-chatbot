@@ -46,56 +46,60 @@ def detect_intent(query: str):
 def build_prompt(query: str, context: str, intent: str):
 
     base_rules = """
-You are an expert Indian Constitution assistant.
-
-Strict Rules:
-- Do NOT give long answers unless needed
-- Be precise and structured
-- Avoid repeating context
-- Do NOT hallucinate outside context
+You are a helpful and friendly AI assistant.
+- Answer ANY type of question naturally and helpfully
+- You have knowledge of the Indian Constitution
+- If context about Constitution is provided, use it
+- If no context is provided, just answer the question normally
+- Be conversational and friendly
+- For greetings like "hi", "hello", respond naturally
 """
+
+    if context:
+        # Constitution-related question with context
+        context_section = f"""
+Constitution Context:
+{context}
+
+---"""
+    else:
+        # General question without context
+        context_section = ""
 
     if intent == "short":
         style = """
-Give ONLY a short answer (1-2 lines).
-No explanation unless necessary.
+Give a short, direct answer (1-2 sentences).
 """
 
     elif intent == "medium":
         style = """
-Give:
-- 1 short answer
-- Then 2-3 bullet points explanation
+Give a natural, helpful answer with brief explanation if needed.
 """
 
     elif intent == "structured":
         style = """
-Give structured answer using bullet points.
-Compare clearly if needed.
+Give a clear, structured answer.
 """
 
     else:
-        style = "Give a clear answer."
+        style = "Give a natural, helpful response."
 
-    return f"""
-{base_rules}
+    prompt = f"""{base_rules}
 
 {style}
+{context_section}
 
-Context:
-{context}
+Question: {query}
 
-Question:
-{query}
+Answer:"""
 
-Answer:
-"""
+    return prompt
 
 
 # =========================
 # GENERATE ANSWER
 # =========================
-def generate_answer(query: str, context: str) -> str:
+def generate_answer(query: str, context: str = None) -> str:
     try:
         if client is None:
             raise RuntimeError("Groq client not initialized")
@@ -103,11 +107,9 @@ def generate_answer(query: str, context: str) -> str:
         if not query.strip():
             raise ValueError("Query is empty")
 
-        if not context.strip():
-            raise ValueError("Context is empty")
-
-        # 🔥 Limit context
-        context = context[:1200]
+        # 🔥 Limit context if provided
+        if context:
+            context = context[:1200]
 
         # 🔥 Detect intent
         intent = detect_intent(query)
@@ -117,16 +119,16 @@ def generate_answer(query: str, context: str) -> str:
 
         # 🔥 Dynamic token control
         if intent == "short":
-            max_tokens = 80
+            max_tokens = 100
         elif intent == "medium":
-            max_tokens = 180
+            max_tokens = 200
         else:
-            max_tokens = 250
+            max_tokens = 300
 
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[{"role": "user", "content": prompt}],
-            temperature=0.2,   # 🔥 more consistent
+            temperature=0.7,   # 🔥 More natural and conversational
             max_tokens=max_tokens
         )
 
