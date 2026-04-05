@@ -1,6 +1,6 @@
 # Constitution Chatbot
 
-An AI-powered conversational system for intelligent Q&A about constitutional documents.
+An AI-powered conversational system for intelligent Q&A about indian constitutional documents.
 
 A project combining a Python FastAPI backend and Flutter frontend.
 
