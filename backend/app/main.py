@@ -4,7 +4,7 @@ from app.routes.chat import router as chat_router
 from app.services.loader_service import loader
 from app.services.llm_service import init_client
 
-app = FastAPI(title="ShareBot AI")
+app = FastAPI(title="constitution chatbot AI")
 
 # Enable CORS for frontend connection
 app.add_middleware(

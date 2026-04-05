@@ -22,7 +22,7 @@ langchain-core==1.2.25
 langchain-community==0.3.10
 
 # Database
-psycopg2-binary==2.9.12
+psycopg2-binary==2.9.11
 sqlalchemy==2.0.36
 
 # Environment and configuration
